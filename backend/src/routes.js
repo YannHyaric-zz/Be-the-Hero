@@ -16,6 +16,4 @@ routes.delete('/incidents/:id', IncidentController.deletar)
 
 routes.get('/profile', profileController.list)
 
-
-
 module.exports = routes
