@@ -23,7 +23,7 @@ export default function Register() {
     };
 
     try {
-      const resp = await api.post("ongs", data);
+      const resp = await api.post('ongs', data);
       alert(`Seu ID é ${resp.data.id}`);
       history.push("/");
     } catch (err) {
