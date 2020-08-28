@@ -5,7 +5,6 @@ exports.up = function(knex) {
         table.string('email').notNullable();
         table.string('whatsapp').notNullable();
         table.string('endereco').notNullable();
-        table.string('sigla');
     });
 };
 

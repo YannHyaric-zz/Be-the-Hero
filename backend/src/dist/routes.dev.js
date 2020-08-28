@@ -8,7 +8,7 @@ var OngController = require('./Controllers/OngController');
 
 var IncidentController = require('./Controllers/IncidentController');
 
-var profileController = require('./Controllers/profileController');
+var ProfileController = require('./Controllers/ProfileController');
 
 var SessionController = require('./Controllers/SessionController');
 
@@ -18,5 +18,5 @@ routes.post('/ongs', OngController.create);
 routes.get('/incidents', IncidentController.list);
 routes.post('/incidents', IncidentController.create);
 routes["delete"]('/incidents/:id', IncidentController.deletar);
-routes.get('/profile', profileController.list);
+routes.get('/profile', ProfileController.list);
 module.exports = routes;
