@@ -13,8 +13,8 @@ var ProfileController = require('./Controllers/ProfileController');
 var SessionController = require('./Controllers/SessionController');
 
 routes.post('/sessions', SessionController.create);
-routes.get('/', OngController.list);
-routes.post('/', OngController.create);
+routes.get('/ongs', OngController.list);
+routes.post('/ongs', OngController.create);
 routes.get('/incidents', IncidentController.list);
 routes.post('/incidents', IncidentController.create);
 routes["delete"]('/incidents/:id', IncidentController.deletar);

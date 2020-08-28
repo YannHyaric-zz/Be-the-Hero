@@ -21,12 +21,22 @@ export default function Profile() {
     })
   }, [ongID]);
 
+  async function handleDeleteIncident(id){
+    try {
+      await api.delete(`incidents/${id}`,{
+        headers: { Authorization: ongID }
+      })
+    }catch (e){
+        alert("Erro ao deletar"+ e);
+    }
+  }
+
   return (
     <div className="profile-container">
       <header>
         <img src={Logo} alt="Logo" />
         <span>Bem Vindo à {ongName}</span>
-        <Link className="button" to="/incident/new">
+        <Link className="button" to="/incidents/new">
           Cadastrar novo Caso
         </Link>
         <button type="button">
@@ -35,15 +45,26 @@ export default function Profile() {
       </header>
       <h1>Casos cadastrados</h1>
       <ul>
+      <li>
+          <strong>Caso:</strong>
+          <p>Caso 0</p>
+          <strong>Desc</strong> 
+          <p>Teste</p>
+          <strong>Val</strong>
+          <p>0</p>
+          <button onClick={()=>handleDeleteIncident(1)} type="button">
+            <FiTrash2 size={20} color="#a8a8b3" />
+          </button>
+        </li>
       {incidents.map(incident =>(
         <li key={incident.id}>
           <strong>Caso:</strong>
           <p>{incident.titulo}</p>
-          <strong>Desc</strong>
+          <strong>Desc</strong> 
           <p>{incident.desc}</p>
           <strong>Val</strong>
-          <p>{incident.valor}</p>
-          <button type="button">
+          <p>{Intl.NumberFormat('pt-BR',{style: 'curency', currency: 'BRL'}).format(incident.valor)}</p>
+          <button onClick={()=>handleDeleteIncident(incident.id)} type="button">
             <FiTrash2 size={20} color="#a8a8b3" />
           </button>
         </li>

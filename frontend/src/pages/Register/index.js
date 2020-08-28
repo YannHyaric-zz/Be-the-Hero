@@ -6,28 +6,29 @@ import { FiArrowLeft } from "react-icons/fi";
 import api from "../../services/api";
 
 export default function Register() {
-  const [Name, setName] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Whatsapp, setWhatsapp] = useState("");
-  const [Endereco, setEndereco] = useState("");
+
+  const [nome, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [endereco, setEndereco] = useState('');
   const history = useHistory();
 
   async function handleRegister(e) {
     e.preventDefault();
 
-    const data = {
-      Name,
-      Email,
-      Whatsapp,
-      Endereco,
+    const d = {
+      nome,
+      email,
+      whatsapp,
+      endereco,
     };
 
     try {
-      const resp = await api.post('ongs', data);
-      alert(`Seu ID é ${resp.data.id}`);
-      history.push("/");
+      const response = await api.post('ongs', d);
+      alert(`Seu ID é ${response.data.id}`);
+      history.push('/');
     } catch (err) {
-      alert("Erro no cadastro");
+      alert("Erro no cadastro" + err);
     }
   }
   return (
@@ -46,23 +47,23 @@ export default function Register() {
         <form onSubmit={handleRegister}>
           <input
             placeholder="Name"
-            value={Name}
+            value={nome}
             onChange={(e) => setName(e.target.value)}
           />
           <input
             type="email"
             placeholder="Email"
-            value={Email}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             placeholder="whatsapp"
-            value={Whatsapp}
+            value={whatsapp}
             onChange={(e) => setWhatsapp(e.target.value)}
           />
           <input
             placeholder="Endereço"
-            value={Endereco}
+            value={endereco}
             onChange={(e) => setEndereco(e.target.value)}
           />
 
