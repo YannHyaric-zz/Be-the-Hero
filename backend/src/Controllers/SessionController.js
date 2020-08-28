@@ -9,8 +9,8 @@ module.exports = {
             .first();
 
         if (!ong) {
-            return response.status(400).json({ error: 'Nenhuma ONG com esse ID' });
+            return response.status(400).json('Nenhuma ONG com esse ID' );
         }
-        return response.json(ong);
+        return response.json({ong});
     }
 }
