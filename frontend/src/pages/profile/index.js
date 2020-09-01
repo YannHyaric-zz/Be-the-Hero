@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FiPower, FiTrash2 } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./styles.css";
 import Logo from "../../assets/Logo.png";
 import api from "../../services/api";
@@ -8,29 +8,40 @@ import api from "../../services/api";
 export default function Profile() {
   const ongName = localStorage.getItem("ongName");
   const ongID = localStorage.getItem("ongID");
+  const history = useHistory();
 
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    api
-      .get("profile", {
+    async function a() {
+      api.get('profile', {
         headers: {
           Authorization: ongID,
         },
-      })
-      .then((response) => {
-        setIncidents(response.data);
+      }).then((response) => {
+        setIncidents(Array.from(response.data.incidents));
       });
+    }
+    a();
   }, [ongID]);
 
   async function handleDeleteIncident(id) {
     try {
-      await api.delete(`incident/${id}`, {
+      await api.delete(`incidents/${id}`, {
         headers: { Authorization: ongID },
       });
+      setIncidents(incidents.filter(incident => incident.id !== id))
     } catch (e) {
-      alert("Erro ao deletar" + e);
+      alert(e);
     }
+  }
+
+  function handleLogout() {
+    localStorage.clear();
+    history.push('/')
+  }
+  function handleDelete0() {
+    alert("O caso teste não pode ser deletado")
   }
 
   return (
@@ -41,7 +52,7 @@ export default function Profile() {
         <Link className="button" to="/incident/new">
           Cadastrar novo Caso
         </Link>
-        <button type="button">
+        <button onClick={handleLogout} type="button">
           <FiPower size={18} color="#e02041" />
         </button>
       </header>
@@ -54,31 +65,29 @@ export default function Profile() {
           <p>Teste</p>
           <strong>Val</strong>
           <p>0</p>
-          <button onClick={() => handleDeleteIncident(1)} type="button">
+          <button onClick={() => handleDelete0()} type="button">
             <FiTrash2 size={20} color="#a8a8b3" />
           </button>
         </li>
-        {incidents.map((incident) => (
-          <li key={incident.id}>
-            <strong>Caso:</strong>
-            <p>{incident.titulo}</p>
-            <strong>Desc</strong>
-            <p>{incident.desc}</p>
-            <strong>Val</strong>
-            <p>
-              {Intl.NumberFormat("pt-BR", {
-                style: "curency",
-                currency: "BRL",
-              }).format(incident.valor)}
-            </p>
-            <button
-              onClick={() => handleDeleteIncident(incident.id)}
-              type="button"
-            >
-              <FiTrash2 size={20} color="#a8a8b3" />
-            </button>
-          </li>
-        ))}
+        {console.log(incidents),
+          incidents.map(incident => (
+            <li key={incident.id}>
+              <strong>Caso:</strong>
+              <p>{incident.titulo}</p>
+              <strong>Desc</strong>
+              <p>{incident.desc}</p>
+              <strong>Val</strong>
+              <p>
+                {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.valor)}
+              </p>
+              <button
+                onClick={() => handleDeleteIncident(incident.id)}
+                type="button"
+              >
+                <FiTrash2 size={20} color="#a8a8b3" />
+              </button>
+            </li>
+          ))}
       </ul>
     </div>
   );

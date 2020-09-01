@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { FiLogIn } from "react-icons/fi";
 import { Link, useHistory } from "react-router-dom";
 import "./styles.css";
@@ -7,15 +7,15 @@ import Logo from "../../assets/Logo.png";
 import api from '../../services/api'
 
 export default function Logon() {
-  const [id,setId] = useState('');
+  const [id, setId] = useState('');
   const history = useHistory();
 
-  async function handleLogin(e){
+  async function handleLogin(e) {
     e.preventDefault();
     try {
-      const data = await api.post('sessions',{id})
-      localStorage.setItem('ongID',id)
-      localStorage.setItem('ongName',data.name)
+      const data = await api.post('sessions', { id })
+      localStorage.setItem('ongID', id)
+      localStorage.setItem('ongName', data.nome)
       history.push('/profile')
     } catch (err) {
       alert('falha no login')
@@ -29,8 +29,8 @@ export default function Logon() {
         <form onSubmit={handleLogin}>
           <h1>Faça seu Logon</h1>
           <input placeholder="Sua ID"
-          value={id}
-          onChange={e => setId(e.target.value)} />
+            value={id}
+            onChange={e => setId(e.target.value)} />
           <button type="submit" className="button">
             Entrar
           </button>
@@ -38,12 +38,7 @@ export default function Logon() {
             <FiLogIn size={16} color="#E02041" />
             Não tenho cadastro
           </Link>
-          {/* Temporario para navegação */}
-          <Link className="back-link" to="/profile">
-            <FiLogIn size={16} color="#E02041" />
-            Main
-          </Link>
-          {/*  */}
+
         </form>
       </section>
       <img src={capa} alt="Capa" className="Capa" />

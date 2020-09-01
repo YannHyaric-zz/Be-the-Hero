@@ -19,6 +19,6 @@ module.exports = {
     async list(request, response) {
         const ongs = await conect('ongs').select('*');
 
-        return response.json(ongs)
+        return response.json({ongs})
     }
 };

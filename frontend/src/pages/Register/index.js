@@ -16,15 +16,15 @@ export default function Register() {
   async function handleRegister(e) {
     e.preventDefault();
 
-    const d = {
+    const data = {
       nome,
       email,
       whatsapp,
-      endereco,
+      endereco
     };
 
     try {
-      const response = await api.post('ongs', d);
+      const response = await api.post('ongs', data);
       alert(`Seu ID é ${response.data.id}`);
       history.push('/');
     } catch (err) {

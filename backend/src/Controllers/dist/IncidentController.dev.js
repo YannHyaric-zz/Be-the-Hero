@@ -57,14 +57,12 @@ module.exports = {
           case 3:
             count = _context2.sent;
             _context2.next = 6;
-            return regeneratorRuntime.awrap(conect('incidents').join('ongs', 'ongs.id', '=', 'incidents.ong_id').limit(5).offset((page - 1) * 5).select('*'));
+            return regeneratorRuntime.awrap(conect('incidents').join('ongs', 'ongs.id', '=', 'incidents.ong_id').limit(5).offset((page - 1) * 5).select(['incidents.*', 'ongs.nome', 'ongs.whatsapp']));
 
           case 6:
             incidents = _context2.sent;
             response.header('X-Total-Count', count['count(*)']);
-            return _context2.abrupt("return", response.json({
-              incidents: incidents
-            }));
+            return _context2.abrupt("return", response.json(incidents));
 
           case 9:
           case "end":
@@ -73,9 +71,9 @@ module.exports = {
       }
     });
   },
-  deletar: function deletar(request, response) {
+  "delete": function _delete(request, response) {
     var id, ong_id, incident;
-    return regeneratorRuntime.async(function deletar$(_context3) {
+    return regeneratorRuntime.async(function _delete$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
@@ -93,7 +91,7 @@ module.exports = {
             }
 
             return _context3.abrupt("return", response.status(401).json({
-              error: 'Operação não permitida'
+              erro: 'Operação não permitida'
             }));
 
           case 7:
