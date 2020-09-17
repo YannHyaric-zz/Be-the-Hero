@@ -6,6 +6,7 @@ import capa from "../../assets/Capa.png";
 import Logo from "../../assets/Logo.png";
 import api from '../../services/api'
 
+
 export default function Logon() {
   const [id, setId] = useState('');
   const history = useHistory();
