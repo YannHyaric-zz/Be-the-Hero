@@ -3,6 +3,8 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 
 const AppStack = createStackNavigator();
+import Incidents from './Incidents'
+import Detail from './Detail'
 
 export default function Routes(){
     return(
