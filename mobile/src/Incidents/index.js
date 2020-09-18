@@ -9,31 +9,33 @@ import api from "../services/api";
 export default function Incidents() {
   const [incidents, setIncidents] = useState();
   const [total, setTotal] = useState(0);
-  const [page,setPage]=useState(1);
-  const[loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   function navigateToDetail(incident) {
-    navigation.navigate("Detail",{incident});
+    navigation.navigate("Detail", { incident });
   }
 
   async function loadIncidents() {
-    if(loading){
+    if (loading) {
       return;
     }
-    if(total>0 && incidents.lenght ===total){
-        return;
+    if (total > 0 && incidents.lenght === total) {
+      return;
     }
     setLoading(true);
-    const response = await api.get("incidents");
-    setIncidents(response.data);
+
+    const response = await api.get(`incidents`,{params:{page}});
+
+    setIncidents([...incidents, ...response.data]);
     setTotal(response.headers["x-total-count"]);
-    setPage(page+1);
+    setPage(page + 1);
     setLoading(false);
   }
 
   useEffect(() => {
-    loadIncidents;
+    loadIncidents();
   }, []);
 
   return (
@@ -54,24 +56,20 @@ export default function Incidents() {
         <Text style={styles.incidentProperty}>Caso:</Text>
         <Text style={styles.incidentValue}>0</Text>
         <Text style={styles.incidentProperty}>Valor:</Text>
-        <Text style={styles.incidentValue}>
-          R$ 0.00
-        </Text>
-        <TouchableOpacity
-          style={styles.detailsButton}
-          onPress={()=>{}}
-        >
+        <Text style={styles.incidentValue}>R$ 0.00</Text>
+        <TouchableOpacity style={styles.detailsButton}>
           <Text style={styles.detailButtonText}>Ver mais detalhes</Text>
           <Feather name="arrow-right" size={16} color="#E02041" />
         </TouchableOpacity>
       </View>
-
 
       <FlatList
         style={styles.incidentList}
         data={incidents}
         keyExtractor={(incident) => String(incident.id)}
         showsVerticalScrollIndicator={false}
+        onEndReached={{ loadIncidents }}
+        onEndReachedThreshold={0.2}
         renderItem={({ item: incident }) => (
           <View style={styles.incident}>
             <Text style={styles.incidentProperty}>Ong:</Text>
@@ -87,7 +85,7 @@ export default function Incidents() {
             </Text>
             <TouchableOpacity
               style={styles.detailsButton}
-              onPress={()=>navigateToDetail(incident)}
+              onPress={() => navigateToDetail(incident)}
             >
               <Text style={styles.detailButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-right" size={16} color="#E02041" />
