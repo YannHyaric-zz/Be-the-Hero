@@ -15,7 +15,7 @@ export default StyleSheet.create({
   },
 
   headerText: {
-    fontSize: 35,
+    fontSize: 20,
     color: "#737380",
   },
 
