@@ -1,14 +1,15 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { View, Image, Text, TouchableOpacity,Linking } from "react-native";
 import styles from "./styles";
 import Logo from "../assets/Logo.png";
 import { Feather } from "@expo/vector-icons";
 import {useNavigation} from '@react-navigation/native'
 import * as MailComposer from 'expo-mail-composer'
+import api from '../services/api'
 
 export default function Detail() {
   const navigation = useNavigation();
-  const message= 'Ola APAD'
+  const message= `Ola APAD`
 
   function navigateBack(){
     navigation.goBack();
