@@ -69,8 +69,7 @@ export default function Profile() {
             <FiTrash2 size={20} color="#a8a8b3" />
           </button>
         </li>
-        {console.log(incidents),
-          incidents.map(incident => (
+        {incidents.map(incident => (
             <li key={incident.id}>
               <strong>Caso:</strong>
               <p>{incident.titulo}</p>

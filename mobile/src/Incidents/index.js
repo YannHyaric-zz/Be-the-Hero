@@ -9,6 +9,8 @@ import api from "../services/api";
 export default function Incidents() {
   const [incidents, setIncidents] = useState();
   const [total, setTotal] = useState(0);
+  const [page,setPage]=useState(1);
+  const[loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   function navigateToDetail(incident) {
@@ -16,9 +18,18 @@ export default function Incidents() {
   }
 
   async function loadIncidents() {
+    if(loading){
+      return;
+    }
+    if(total>0 && incidents.lenght ===total){
+        return;
+    }
+    setLoading(true);
     const response = await api.get("incidents");
     setIncidents(response.data);
     setTotal(response.headers["x-total-count"]);
+    setPage(page+1);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -48,7 +59,7 @@ export default function Incidents() {
         </Text>
         <TouchableOpacity
           style={styles.detailsButton}
-          onPress={()=>navigateToDetail(incident)}
+          onPress={()=>{}}
         >
           <Text style={styles.detailButtonText}>Ver mais detalhes</Text>
           <Feather name="arrow-right" size={16} color="#E02041" />
@@ -76,7 +87,7 @@ export default function Incidents() {
             </Text>
             <TouchableOpacity
               style={styles.detailsButton}
-              onPress={navigateToDetail}
+              onPress={()=>navigateToDetail(incident)}
             >
               <Text style={styles.detailButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-right" size={16} color="#E02041" />
