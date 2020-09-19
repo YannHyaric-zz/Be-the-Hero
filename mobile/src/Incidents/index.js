@@ -57,7 +57,7 @@ export default function Incidents() {
         <Text style={styles.incidentValue}>0</Text>
         <Text style={styles.incidentProperty}>Valor:</Text>
         <Text style={styles.incidentValue}>R$ 0.00</Text>
-        <TouchableOpacity style={styles.detailsButton}>
+        <TouchableOpacity style={styles.detailsButton} onPress={navigation.navigate("Detail")}> 
           <Text style={styles.detailButtonText}>Ver mais detalhes</Text>
           <Feather name="arrow-right" size={16} color="#E02041" />
         </TouchableOpacity>
