@@ -29,6 +29,7 @@ routes.get("/incidents", celebrate({
         page: Joi.number()
     })
 }),IncidentController.list);
+
 routes.post("/incidents", IncidentController.create);
 routes.delete("/incidents/:id", celebrate({
     [Segments.PARAMS]: Joi.object().keys({
