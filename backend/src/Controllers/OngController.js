@@ -1,5 +1,5 @@
 const conect = require('../DB/conect');
-const GUI = require('../../utils/generateUniqueId')
+const GUI = require('../utils/generateUniqueId')
 
 module.exports = {
     async create(request, response) {

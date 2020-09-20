@@ -12,9 +12,10 @@ routes.get("/ongs", OngController.list);
 
 routes.post("/ongs", celebrate({
     [Segments.BODY]: Joi.object().keys({
-        name: Joi.string().required(),
+        nome: Joi.string().required(),
         email: Joi.string().required().email(),
-        whatsapp: Joi.number().required().min(10),
+        whatsapp: Joi.string().required().min(10).max(15), 
+        endereco: Joi.string()
     })
 }), OngController.create);
 
