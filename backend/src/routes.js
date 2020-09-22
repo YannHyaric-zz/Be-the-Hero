@@ -38,6 +38,4 @@ routes.delete("/incidents/:id", celebrate({
     })
 }),IncidentController.delete);
 
-
-
 module.exports = routes;

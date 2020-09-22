@@ -14,13 +14,15 @@ export default function Profile() {
 
   useEffect(() => {
     async function a() {
-      api.get('profile', {
-        headers: {
-          Authorization: ongID,
-        },
-      }).then((response) => {
-        setIncidents(Array.from(response.data.incidents));
-      });
+      api
+        .get("profile", {
+          headers: {
+            Authorization: ongID,
+          },
+        })
+        .then((response) => {
+          setIncidents(Array.from(response.data.incidents));
+        });
     }
     a();
   }, [ongID]);
@@ -30,7 +32,7 @@ export default function Profile() {
       await api.delete(`incidents/${id}`, {
         headers: { Authorization: ongID },
       });
-      setIncidents(incidents.filter(incident => incident.id !== id))
+      setIncidents(incidents.filter((incident) => incident.id !== id));
     } catch (e) {
       alert(e);
     }
@@ -38,10 +40,10 @@ export default function Profile() {
 
   function handleLogout() {
     localStorage.clear();
-    history.push('/')
+    history.push("/");
   }
   function handleDelete0() {
-    alert("O caso teste não pode ser deletado")
+    alert("O caso teste não pode ser deletado");
   }
 
   return (
@@ -69,24 +71,27 @@ export default function Profile() {
             <FiTrash2 size={20} color="#a8a8b3" />
           </button>
         </li>
-        {incidents.map(incident => (
-            <li key={incident.id}>
-              <strong>Caso:</strong>
-              <p>{incident.titulo}</p>
-              <strong>Desc</strong>
-              <p>{incident.desc}</p>
-              <strong>Val</strong>
-              <p>
-                {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.valor)}
-              </p>
-              <button
-                onClick={() => handleDeleteIncident(incident.id)}
-                type="button"
-              >
-                <FiTrash2 size={20} color="#a8a8b3" />
-              </button>
-            </li>
-          ))}
+        {incidents.map((incident) => (
+          <li key={incident.id}>
+            <strong>Caso:</strong>
+            <p>{incident.titulo}</p>
+            <strong>Desc</strong>
+            <p>{incident.desc}</p>
+            <strong>Val</strong>
+            <p>
+              {Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(incident.valor)}
+            </p>
+            <button
+              onClick={() => handleDeleteIncident(incident.id)}
+              type="button"
+            >
+              <FiTrash2 size={20} color="#a8a8b3" />
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

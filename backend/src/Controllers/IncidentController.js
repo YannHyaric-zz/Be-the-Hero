@@ -22,7 +22,7 @@ module.exports = {
             .select(['incidents.*', 'ongs.nome', 'ongs.whatsapp']);
 
         response.header('x-total-count', count['count(*)']);
-        return response.json(incidents);
+        return response.json({incidents});
     },
     async delete(request, response) {
         const { id } = request.params;
