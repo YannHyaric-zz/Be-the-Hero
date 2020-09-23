@@ -9,8 +9,8 @@ import * as MailComposer from "expo-mail-composer";
 export default function Detail() {
   const navigation = useNavigation();
   const route = useRoute();
-  const incident = route.params.Incidents;
-  const message = `Ola ${incident.name}`;
+  const incident = route.params;
+  const message = `Ola ${incident}`;
 
   function navigateBack() {
     navigation.goBack();
@@ -18,7 +18,7 @@ export default function Detail() {
 
   function sendMail() {
     MailComposer.composeAsync({
-      subject: `Heroi do caso: ${incident.title}`,
+      subject: `Heroi do caso: ${incident}`,
       recipients: [incident.email],
       body: message,
     });
@@ -38,9 +38,9 @@ export default function Detail() {
       </View>
       <View style={styles.incident}>
         <Text style={styles.incidentProperty,{marginTop:0}}>Ong:</Text>
-        <Text style={styles.incidentValue}>{incident.name}</Text>
+        <Text style={styles.incidentValue}>{incident}</Text>
         <Text style={styles.incidentProperty}>Caso:</Text>
-        <Text style={styles.incidentValue}>{incident.title}</Text>
+        <Text style={styles.incidentValue}>{incident}</Text>
         <Text style={styles.incidentProperty}>Valor:</Text>
         <Text style={styles.incidentValue}>
           {Intl.NumberFormat("pt-BR", {
