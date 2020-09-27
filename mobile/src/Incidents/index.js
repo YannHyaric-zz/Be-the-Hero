@@ -19,20 +19,27 @@ export default function Incidents() {
 
   async function loadIncidents() {
     if (loading) {
-      return;
+        return;
     }
-    if (total > 0 && incidents.lenght === total) {
-      return;
+
+    if (total > 0 && incidents.length === total) {
+        return;
     }
+
     setLoading(true);
+    try {
+        const response = await api.get("/incidents", {
+            params: { page },
+        });
 
-    const response = await api.get("incidents", { params: { page } });
-
-    setIncidents([...incidents, ...response.data.data]);
-    setTotal(response.headers["x-total-count"]);
-    setPage(page + 1);
+        setIncidents([...incidents, ...response.data]);
+        setTotal(response.headers["x-total-count"]);
+        setPage(page + 1);
+    } catch (err) {
+        console.log('Ocorreu um erro: ', err)
+    }
     setLoading(false);
-  }
+}
 
   useEffect(() => {
     loadIncidents();
@@ -59,7 +66,6 @@ export default function Incidents() {
         <Text style={styles.incidentValue}>R$ 0.00</Text>
         <TouchableOpacity
           style={styles.detailsButton}
-          onPress={navigation.navigate("Detail")}
         >
           <Text style={styles.detailButtonText}>Ver mais detalhes</Text>
           <Feather name="arrow-right" size={16} color="#E02041" />
