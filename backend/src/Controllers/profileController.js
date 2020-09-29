@@ -6,7 +6,6 @@ module.exports = {
         const incidents = await conect('incidents')
             .where('ong_id', ong_id)
             .select('*');
-
         return response.json({ incidents })
     }
 }
